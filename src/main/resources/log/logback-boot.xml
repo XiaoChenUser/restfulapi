@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+<!--
+scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true
+scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+-->
+<property name="APP_Name" value="restfulapi"/>
+<contextName>${APP_Name}</contextName>
+<!-- 注意此文件继承自spring的配置文件,直接用Spring自己的风格也挺漂亮的 -->
+<include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+<!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+<springProfile name="jsonResult,dev">
+    <logger name="com.restfulapi" level="INFO" addtivity="true">
+        <!--<appender-ref ref="CONSOLE" />-->
+    </logger>
+    <logger name="com.restfulapi.common" level="DEBUG"></logger>
+    <logger name="com.restfulapi.quartz" level="DEBUG"></logger>
+    <logger name="com.restfulapi.repository" level="DEBUG"></logger>
+    <logger name="com.restfulapi.service" level="DEBUG"></logger>
+    <logger name="com.restfulapi.hbase" level="DEBUG"></logger>
+    <logger name="com.restfulapi.entity" level="DEBUG"></logger>
+    <logger name="com.restfulapi.controller" level="DEBUG"></logger>
+    <logger name="com.restfulapi.RestfulapiApplication" level="DEBUG"></logger>
+
+</springProfile>
+
+<!-- 生产环境. -->
+<springProfile name="prod">
+    <logger name="com.restfulapi.*" level="DEBUG"/>
+    <logger name="com.restfulapi.RestfulapiApplication" level="DEBUG"></logger>
+    <logger name="com.restfulapi.controller" level="DEBUG"></logger>
+    <logger name="com.restfulapi.service" level="DEBUG"></logger>
+</springProfile>
+
+
+</configuration>

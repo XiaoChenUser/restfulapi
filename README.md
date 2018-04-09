@@ -1,0 +1,2 @@
+springboot+hbase+mysql-jpa
+
